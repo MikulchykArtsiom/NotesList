@@ -1,0 +1,264 @@
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+.container {
+    max-width: 1152px;
+    margin: auto;
+}
+
+.header {
+    box-shadow: 0 1px 3px 0 rgba(11, 12, 13, 0.16), 0 0 1px 0 rgba(11, 12, 13, 0.24);
+    background: #fff;
+}
+
+.header-wrapper {
+    min-height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.logo {
+    max-width: 110px;
+    min-height: 24px;
+}
+
+.header-wrapper p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: right;
+    color: #000;
+
+}
+
+.counter {
+    font-weight: 700;
+}
+
+.note-form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    flex-wrap: wrap;
+    box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    background: #fff;
+    border-radius: 4px;
+    padding: 24px;
+    width: 1152px;
+    height: 228px;
+}
+
+.form-info {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 2;
+    color: #919191;
+}
+
+input,
+textarea {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 344px;
+    height: 36px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.71429;
+    color: #000;
+    resize: none;
+}
+
+#description {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 848px;
+    height: 84px;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 2;
+    color: #919191;
+    margin-top: 45px;
+}
+
+legend {
+    all: unset;
+    margin-bottom: 5px;
+}
+
+.radio-list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 8px;
+}
+
+
+.radio {
+    appearance: none;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 6px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.radio[value="red"] {
+    background-color: #F37D7D;
+}
+
+.radio[value="green"] {
+    background-color: #C2F37D;
+}
+
+.radio[value="blue"] {
+    background-color: #7DE1F3;
+}
+
+.radio[value="yellow"] {
+    background-color: #F3DB7D;
+}
+
+.radio[value="purple"] {
+    background-color: #E77DF3;
+}
+
+.radio:checked {
+    border-color: white;
+    box-shadow: 0 0 0 3px white,
+        /* Внутренняя обводка для создания промежутка */
+        0 0 0 4.5px #007BFF;
+    /* Внешняя обводка */
+}
+
+.form-btn {
+    border-radius: 10px;
+    padding: 6px 24px;
+    width: 232px;
+    height: 36px;
+    background: #457cdc;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.filter-box {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 2;
+    color: #000;
+}
+
+.filter-box img {
+    width: 16px;
+    height: 16px;
+    align-self: center;
+}
+
+.notes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.notNotes {
+    margin: 140px auto;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    color: #000;
+}
+
+.note {
+    width: 368px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+}
+
+.note-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px 10px 0 0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #292515;
+}
+
+.note img {
+    width: 16px;
+}
+
+.note p {
+    padding: 12px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.71429;
+    color: #000;
+}
+
+.red {
+    background-color: #F37D7D;
+}
+
+.green {
+    background-color: #C2F37D;
+}
+
+.blue {
+    background-color: #7DE1F3;
+}
+
+.yellow {
+    background-color: #F3DB7D;
+}
+
+.purple {
+    background-color: #E77DF3;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.messages-box {
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+}
+
+.messages-box p {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.71429;
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 24px;
+}
