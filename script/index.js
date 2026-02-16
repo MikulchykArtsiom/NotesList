@@ -141,18 +141,18 @@ const view = {
         if (model.notes.length === 0) {
             notesHTML = `<p class = "notNotes">У вас нет еще ни одной заметки<br>Заполните поля выше и создайте свою первую заметку!</p>`
         } else {
-            const imgFavoriteList = favoriteList.classList.contains('done') ? '/images/checkbox_active.png' : '/images/checkbox_inactive.png'
+            const imgFavoriteList = favoriteList.classList.contains('done') ? 'images/checkbox_active.png' : 'images/checkbox_inactive.png'
             favoriteHTML = `Показать только избранные заметки <img src=${imgFavoriteList}> `
 
             for (const note of notes) {
-                const imgFavorite = note.isFavorite ? "/images/heart_active.svg" : "/images/heart_inactive.svg"
+                const imgFavorite = note.isFavorite ? "images/heart_active.svg" : "images/heart_inactive.svg"
                 notesHTML += `
         <li id="${note.id}" class="note">
         <div class="note-wrapper ${note.color}" >
         <h2 class="note-title">${note.title}</h2>
         <div class="buttons">
         <img class="favorite-button"src=${imgFavorite}>
-        <img class="delete-button"src="/images/trash.svg">
+        <img class="delete-button"src="images/trash.svg">
         </div>
         </div>
         <p class="note-description">${note.description}</p>
@@ -197,19 +197,19 @@ const view = {
 const controller = {
     addNote(title, description, color) {
         if (title.length > 50) {
-            view.showMessage('Максимальная длина заголовка - 50 символов', 'red', '/images/warning.svg')
+            view.showMessage('Максимальная длина заголовка - 50 символов', 'red', 'images/warning.svg')
         } else if (title.trim() !== '' && description.trim() !== '') {
             newColor = colors[color.toUpperCase()]
             model.addNote(title, description, newColor)
-            view.showMessage('Заметка добавлена', 'green', '/images/Done.svg')
+            view.showMessage('Заметка добавлена', 'green', 'images/Done.svg')
         } else {
-            view.showMessage('Заполните все поля', 'red', '/images/warning.svg')
+            view.showMessage('Заполните все поля', 'red', 'images/warning.svg')
         }
     },
 
     deleteNotes(noteId) {
         model.deleteNotes(noteId)
-        view.showMessage('Заметка удалена', 'red', '/images/warning.svg')
+        view.showMessage('Заметка удалена', 'red', 'images/warning.svg')
     },
 
     isFavoriteNote(noteId) {
