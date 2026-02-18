@@ -107,11 +107,11 @@ const view = {
 
         notesList.addEventListener('click', (event) => {
             if (event.target.classList.contains('favorite-button')) {
-                const noteId = +event.target.parentElement.parentElement.parentElement.id
+                const noteId = +event.target.closest('.note').id
                 controller.isFavoriteNote(noteId)
             }
             if (event.target.classList.contains('delete-button')) {
-                const noteId = +event.target.parentElement.parentElement.parentElement.id
+                const noteId = +event.target.closest('.note').id
                 controller.deleteNotes(noteId)
 
             }
