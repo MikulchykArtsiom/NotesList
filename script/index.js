@@ -99,6 +99,8 @@ const view = {
             if (title.length <= 50 && title && description) {
                 input.value = ''
                 textarea.value = ''
+                const color = colors.find(color => color.value === "yellow")
+                color.checked = 'true'
             }
 
         })
