@@ -38,7 +38,11 @@ const model = {
     },
 
     getLocalStorage() {
-        this.notes = JSON.parse(localStorage.getItem('notes'))
+        if (localStorage.getItem('notes')) {
+            this.notes = JSON.parse(localStorage.getItem('notes'))
+        } else {
+            this.notes = []
+        }
     },
 
     toggleShowOnlyFavorite(isShowOnlyFavorite) {
