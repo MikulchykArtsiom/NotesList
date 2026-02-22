@@ -30,17 +30,39 @@ const MOCK_NOTES = [{
 ]
 
 const model = {
-    notes: MOCK_NOTES,
-    favoriteListNotes() {
-        const favoriteListNotes = this.notes.filter((note) => note.isFavorite)
-        return favoriteListNotes
+    notes: [], //MOCK_NOTES,
+    isShowOnlyFavorite: false,
+
+    saveLocalStorage(notes) {
+        localStorage.setItem('notes', JSON.stringify(notes));
+    },
+
+    getLocalStorage() {
+        this.notes = JSON.parse(localStorage.getItem('notes'))
+    },
+
+    toggleShowOnlyFavorite(isShowOnlyFavorite) {
+        this.isShowOnlyFavorite = isShowOnlyFavorite
+        this.updateNotesView()
+    },
+
+    updateNotesView() {
+        const notesToRender = this.notes.filter((note) => note.isFavorite)
+
+        if (this.isShowOnlyFavorite) {
+            this.saveLocalStorage(this.notes)
+            view.renderNotes(notesToRender)
+        } else {
+            this.saveLocalStorage(this.notes)
+            view.renderNotes(this.notes)
+        }
+
     },
 
     addNote(title, description, color) {
         const isFavorite = false
-        const id = Math.random()
+        const id = new Date().getTime()
         const note = {
-            // 1. создадим новую заметку
             id,
             title,
             description,
@@ -48,32 +70,20 @@ const model = {
             isFavorite
         }
 
-        // 2. добавим заметку в начало списка
         this.notes.unshift(note)
-        // 3. обновим view
-        controller.listNotes()
+        this.updateNotesView()
     },
 
     deleteNotes(noteId) {
         this.notes = this.notes.filter((note) => note.id !== noteId)
-        controller.listNotes()
+        this.updateNotesView()
     },
 
     isFavoriteNote(noteId) {
         const favoriteNote = this.notes.find((note) => note.id === noteId)
         favoriteNote.isFavorite = !favoriteNote.isFavorite
-        controller.listNotes()
-    },
-
-    listNotes(flag) {
-        if (flag) {
-            view.renderNotes(this.favoriteListNotes())
-        } else {
-            view.renderNotes(this.notes)
-        }
-
+        this.updateNotesView()
     }
-
 }
 
 const view = {
@@ -86,7 +96,6 @@ const view = {
         const notesList = document.querySelector('.notes-list')
         const favoriteList = document.querySelector('.filter-box')
 
-
         form.addEventListener('submit', (event) => {
             event.preventDefault()
             const title = document.querySelector('#title').value
@@ -96,7 +105,7 @@ const view = {
 
             controller.addNote(title, description, color)
 
-            if (title.length <= 50 && title && description) {
+            if (title.length <= 50 && description.length <= 250 && title && description) {
                 input.value = ''
                 textarea.value = ''
                 const color = colors.find(color => color.value === "yellow")
@@ -119,26 +128,28 @@ const view = {
 
         favoriteList.addEventListener('click', () => {
             favoriteList.classList.toggle('done')
-            controller.listNotes()
+            const isShowOnlyFavorite = favoriteList.classList.contains('done')
+            controller.toggleShowOnlyFavorite(isShowOnlyFavorite)
         })
 
     },
 
     renderNotes(notes) {
-        // your code here
-        // находим контейнер для заметок и рендерим заметки в него (если заметок нет, отображаем соответствующий текст)
-        // также здесь можно будет повесить обработчики кликов на кнопки удаления и избранного
 
         const notesList = document.querySelector('.notes-list')
         const counter = document.querySelector('.counter')
         const favoriteList = document.querySelector('.filter-box')
+        const counterText = document.querySelector('.counterText')
 
-
-        counter.innerHTML = `${model.notes.length}`
+        if (model.isShowOnlyFavorite) {
+            counterText.textContent = 'Избранных:'
+        } else {
+            counterText.textContent = 'Всего заметок:'
+        }
+        counter.innerHTML = `${notes.length}`
 
         let notesHTML = ''
         let favoriteHTML = ''
-
 
         if (model.notes.length === 0) {
             notesHTML = `<p class = "notNotes">У вас нет еще ни одной заметки<br>Заполните поля выше и создайте свою первую заметку!</p>`
@@ -159,25 +170,12 @@ const view = {
         </div>
         <p class="note-description">${note.description}</p>
         </li>
-      `
+        `
             }
         }
 
-
-
-        // notesList.addEventListener('click', (event) => {
-        //     if (event.target.classList.contains('favorite-button')) {
-        //         const noteId = +event.target.parentElement.parentElement.parentElement.id
-        //         controller.isFavoriteNote(noteId)
-        //     }
-        //     if (event.target.classList.contains('delete-button')) {
-        //         const noteId = +event.target.parentElement.parentElement.parentElement.id
-        //         controller.deleteNotes(noteId)
-        //     }
-        // })
         favoriteList.innerHTML = favoriteHTML
         notesList.innerHTML = notesHTML
-
     },
 
     showMessage(context, color, img) {
@@ -193,13 +191,14 @@ const view = {
             message.remove()
         }, 3000)
     }
-
 }
 
 const controller = {
     addNote(title, description, color) {
         if (title.length > 50) {
             view.showMessage('Максимальная длина заголовка - 50 символов', 'red', 'images/warning.svg')
+        } else if (description.length > 250) {
+            view.showMessage('Максимальная длина описания - 250 символов', 'red', 'images/warning.svg')
         } else if (title.trim() !== '' && description.trim() !== '') {
             newColor = colors[color.toUpperCase()]
             model.addNote(title, description, newColor)
@@ -218,14 +217,13 @@ const controller = {
         model.isFavoriteNote(noteId)
     },
 
-    listNotes() {
-        const favoriteList = document.querySelector('.filter-box')
-        const flag = favoriteList.classList.contains('done')
-        model.listNotes(flag)
+    toggleShowOnlyFavorite(isShowOnlyFavorite) {
+        model.toggleShowOnlyFavorite(isShowOnlyFavorite)
     }
 }
 
 function init() {
+    model.getLocalStorage()
     view.init()
 }
 

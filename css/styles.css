@@ -25,6 +25,15 @@ body {
     min-height: 24px;
 }
 
+.header-wrapper div{
+    display: flex;
+    gap: 5px;
+}
+
+.header-wrapper div span {
+    align-self: center;
+}
+
 .header-wrapper p {
     font-weight: 500;
     font-size: 16px;
@@ -37,6 +46,7 @@ body {
 .counter {
     font-weight: 700;
 }
+
 
 .note-form {
     display: flex;
